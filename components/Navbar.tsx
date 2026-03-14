@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import LogoIcon from "./Logo";
 
 const DEMO_LINK =
   "https://cube8441-dev-ed.develop.my.site.com/CodeWithShubham/account-intelligence";
@@ -233,7 +234,7 @@ export default function Navbar() {
       <nav id="navbar">
         {/* Logo */}
         <a href="#home" className="nav-logo">
-          <div className="nav-logo-icon">CF</div>
+          <LogoIcon size={36} />
           <span className="nav-logo-name">
             Cloud<span>Force</span>
           </span>

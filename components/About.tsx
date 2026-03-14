@@ -1,7 +1,17 @@
+import LogoIcon from "./Logo";
+
 const WA_LINK =
   "https://api.whatsapp.com/send?phone=918983208851&text=Hi%20Shubham%2C%20I%20saw%20your%20Salesforce%20solutions%20website%20and%20I%20am%20interested%20in%20one%20of%20your%20products.";
 
-const skills = ["Apex", "LWC", "SSO", "Flows", "Integrations", "SOQL", "REST APIs"];
+const skills = [
+  "Apex",
+  "LWC",
+  "SSO",
+  "Flows",
+  "Integrations",
+  "SOQL",
+  "REST APIs",
+];
 
 export default function About() {
   return (
@@ -9,12 +19,21 @@ export default function About() {
       <div className="about-layout">
         {/* Card */}
         <div className="about-card fade-up">
-          <div className="about-monogram">S</div>
+          <div
+            className="about-monogram"
+            style={{ background: "none", boxShadow: "none", padding: 0 }}
+          >
+            <LogoIcon size={80} />
+          </div>
           <div className="about-name">SHUBHAM</div>
-          <div className="about-role">Salesforce AppExchange Certified Developer</div>
+          <div className="about-role">
+            Salesforce AppExchange Certified Developer
+          </div>
           <div className="about-skills">
             {skills.map((s) => (
-              <span className="skill-pill" key={s}>{s}</span>
+              <span className="skill-pill" key={s}>
+                {s}
+              </span>
             ))}
           </div>
           <div className="about-stats">
@@ -43,18 +62,22 @@ export default function About() {
             3+ Years of <span className="lit">Enterprise</span> Salesforce
           </h2>
           <p className="fade-up d1">
-            I&apos;m a <strong>Salesforce AppExchange Certified Developer</strong> with 3+ years of
-            hands-on experience building production-grade Apex, Lightning Web Components, and
-            complex Salesforce integrations for enterprise clients.
+            I&apos;m a{" "}
+            <strong>Salesforce AppExchange Certified Developer</strong> with 3+
+            years of hands-on experience building production-grade Apex,
+            Lightning Web Components, and complex Salesforce integrations for
+            enterprise clients.
           </p>
           <div className="about-quote fade-up d2">
-            &ldquo;Every solution I build is designed to be maintained and scaled by your team long
-            after delivery — not just to demo well.&rdquo;
+            &ldquo;Every solution I build is designed to be maintained and
+            scaled by your team long after delivery — not just to demo
+            well.&rdquo;
           </div>
           <p className="fade-up d3">
-            My philosophy: clean architecture, secure patterns, and code your entire engineering
-            team can understand. Every product here has been deployed in real environments and
-            refined through genuine client feedback.
+            My philosophy: clean architecture, secure patterns, and code your
+            entire engineering team can understand. Every product here has been
+            deployed in real environments and refined through genuine client
+            feedback.
           </p>
           <a
             href={WA_LINK}
