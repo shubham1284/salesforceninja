@@ -129,7 +129,7 @@ export default function Navbar() {
         .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
         .theme-toggle-icon-only {
-          display: none;
+          display: flex;
           align-items: center;
           justify-content: center;
           width: 40px;
@@ -215,15 +215,15 @@ export default function Navbar() {
 
         .nav-mobile-right { display: none; align-items: center; gap: 10px; }
 
+        /* Hide full toggle always */
+        .theme-toggle { display: none !important; }
+
         @media (max-width: 768px) {
           .nav-links { display: none !important; }
           .btn-nav-ghost { display: none !important; }
           .btn-nav-primary { display: none !important; }
-          .theme-toggle { display: none !important; }
-          .nav-right { display: none !important; }
           .nav-mobile-right { display: flex !important; }
           .hamburger { display: flex !important; }
-          .theme-toggle-icon-only { display: flex !important; }
           .mobile-overlay { display: block; }
           .mobile-drawer { display: block; }
         }
@@ -258,19 +258,11 @@ export default function Navbar() {
         {/* Desktop right */}
         <div className="nav-right">
           <button
-            className="theme-toggle"
+            className="theme-toggle-icon-only"
             onClick={toggleTheme}
             aria-label="Toggle theme"
           >
-            <span className="toggle-icon">
-              {theme === "dark" ? "🌙" : "☀️"}
-            </span>
-            <div className="toggle-track">
-              <div className="toggle-thumb" />
-            </div>
-            <span className="toggle-label">
-              {theme === "dark" ? "Dark" : "Light"}
-            </span>
+            {theme === "dark" ? "🌙" : "☀️"}
           </button>
           <a
             href={DEMO_LINK}
@@ -285,15 +277,8 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Mobile right — theme icon + hamburger */}
+        {/* Mobile right — hamburger only */}
         <div className="nav-mobile-right">
-          <button
-            className="theme-toggle-icon-only"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? "🌙" : "☀️"}
-          </button>
           <button
             className={`hamburger ${menuOpen ? "open" : ""}`}
             onClick={() => setMenuOpen((v) => !v)}
