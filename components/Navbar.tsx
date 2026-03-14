@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import LogoIcon from "./Logo";
+import { LogoNavbar } from "./Logo";
 
 const DEMO_LINK =
   "https://cube8441-dev-ed.develop.my.site.com/CodeWithShubham/account-intelligence";
@@ -233,11 +234,8 @@ export default function Navbar() {
       {/* ── NAVBAR ── */}
       <nav id="navbar">
         {/* Logo */}
-        <a href="#home" className="nav-logo">
-          <LogoIcon size={36} />
-          <span className="nav-logo-name">
-            Cloud<span>Force</span>
-          </span>
+        <a href="#home" className="nav-logo" style={{ gap: 0 }}>
+          <LogoNavbar />
         </a>
 
         {/* Desktop nav links */}
