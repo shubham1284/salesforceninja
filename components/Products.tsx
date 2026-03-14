@@ -13,7 +13,7 @@ const products = [
       { label: "Inline Editing", cls: "tag-green" },
       { label: "Data Grid", cls: "" },
     ],
-    title: "Smart Account Grid",
+    title: "smartAccountGrid",
     desc: "An interactive view of customer accounts — search, filter, and manage records from a single screen with 360° overview of contacts, opportunities, and cases.",
     bizValue:
       "Enables quick updates, bulk actions, and inline editing without navigating multiple pages.",
@@ -517,9 +517,18 @@ export default function Products() {
                 <div className="prod-title">{title}</div>
                 <div className="prod-desc">{desc}</div>
                 <div className="prod-biz">{bizValue}</div>
+                <span
+                  className="prod-meta"
+                  style={{ marginBottom: "16px", display: "block" }}
+                >
+                  {meta}
+                </span>
                 <div className="prod-divider" />
                 <div className="prod-footer">
-                  <span className="prod-meta">{meta}</span>
+                  <div>
+                    <div className="prod-price">$149</div>
+                    <div className="prod-price-lbl">One-time license</div>
+                  </div>
                   <div className="prod-btns">
                     <a
                       href={demoUrl}
@@ -527,8 +536,9 @@ export default function Products() {
                       rel="noopener noreferrer"
                       className="btn-demo"
                     >
-                      View Demo ↗
+                      Demo ↗
                     </a>
+                    <button className="btn-buy buy-gold">Buy Now</button>
                   </div>
                 </div>
               </div>
