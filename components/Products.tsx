@@ -1,5 +1,17 @@
 "use client";
 
+import { useState } from "react";
+
+// Razorpay global type
+declare global {
+  interface Window {
+    Razorpay: new (options: Record<string, unknown>) => {
+      open: () => void;
+      on: (event: string, handler: () => void) => void;
+    };
+  }
+}
+
 const BASE_URL = "https://cube8441-dev-ed.develop.my.site.com/CodeWithShubham";
 
 const products = [
@@ -403,6 +415,9 @@ const products = [
 ];
 
 export default function Products() {
+  const [loadingItem, setLoadingItem] = useState<string | null>(null);
+
+  // ── Mouse glow ───────────────────────────────────────────
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -411,10 +426,97 @@ export default function Products() {
     card.style.setProperty("--mx", `${x}%`);
     card.style.setProperty("--my", `${y}%`);
   };
-
   const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
     e.currentTarget.style.setProperty("--mx", "50%");
     e.currentTarget.style.setProperty("--my", "50%");
+  };
+
+  // ── Razorpay checkout ────────────────────────────────────
+  const handleBuyNow = async (productTitle: string) => {
+    try {
+      setLoadingItem(productTitle);
+
+      // Step 1 — create order on server
+      const res = await fetch("/api/razorpay", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: 149, productTitle }),
+      });
+
+      if (!res.ok) throw new Error("Failed to create order");
+
+      const { orderId, amount, currency, keyId } = await res.json();
+
+      // Step 2 — load Razorpay script if not already loaded
+      if (!window.Razorpay) {
+        await new Promise<void>((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = "https://checkout.razorpay.com/v1/checkout.js";
+          script.onload = () => resolve();
+          script.onerror = () => reject(new Error("Razorpay script failed"));
+          document.body.appendChild(script);
+        });
+      }
+
+      // Step 3 — open Razorpay checkout popup
+      const options = {
+        key: keyId,
+        amount,
+        currency,
+        name: "CloudForce",
+        description: productTitle,
+        order_id: orderId,
+        handler: async (response: {
+          razorpay_payment_id: string;
+          razorpay_order_id: string;
+          razorpay_signature: string;
+        }) => {
+          // Step 4 — verify payment on server
+          const verify = await fetch("/api/razorpay", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            }),
+          });
+
+          const result = await verify.json();
+
+          if (result.success) {
+            alert(
+              `✅ Payment successful!\nPayment ID: ${response.razorpay_payment_id}\n\nYou will receive the component via email shortly.`,
+            );
+          } else {
+            alert("❌ Payment verification failed. Please contact support.");
+          }
+        },
+        prefill: {
+          name: "",
+          email: "",
+        },
+        theme: {
+          color: "#D4AF6A",
+        },
+        modal: {
+          ondismiss: () => setLoadingItem(null),
+        },
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on("payment.failed", () => {
+        alert("❌ Payment failed. Please try again.");
+        setLoadingItem(null);
+      });
+      rzp.open();
+    } catch (err) {
+      console.error("Buy error:", err);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoadingItem(null);
+    }
   };
 
   return (
@@ -538,7 +640,17 @@ export default function Products() {
                     >
                       Demo ↗
                     </a>
-                    <button className="btn-buy buy-gold">Buy Now</button>
+                    <button
+                      className="btn-buy buy-gold"
+                      onClick={() => handleBuyNow(title)}
+                      disabled={loadingItem === title}
+                      style={{
+                        opacity: loadingItem === title ? 0.7 : 1,
+                        cursor: loadingItem === title ? "wait" : "pointer",
+                      }}
+                    >
+                      {loadingItem === title ? "Loading..." : "Buy Now"}
+                    </button>
                   </div>
                 </div>
               </div>
