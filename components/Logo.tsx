@@ -168,118 +168,131 @@ export function LogoFull() {
 }
 
 /**
- * LogoNavbar — full lockup for the header:
- * [SK icon] + stacked "Cloud / Force" + "PREMIUM SALESFORCE SOLUTIONS" tagline
- * Matches the reference design exactly. Height fits a 72px navbar.
+ * LogoNavbar — full lockup for the header.
+ * Uses HTML + CSS (not SVG text) so dark/light theme vars work correctly.
+ * Icon is SVG, wordmark + tagline are HTML elements.
  */
 export function LogoNavbar() {
   return (
-    <svg
-      width="210"
-      height="52"
-      viewBox="0 0 210 52"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ flexShrink: 0, display: "block" }}
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "12px",
+        textDecoration: "none",
+        flexShrink: 0,
+      }}
     >
-      <defs>
-        <linearGradient
-          id="navGrad"
-          x1="0"
-          y1="0"
-          x2="52"
-          y2="52"
-          gradientUnits="userSpaceOnUse"
+      {/* SK icon mark */}
+      <svg
+        width="46"
+        height="46"
+        viewBox="0 0 52 52"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ flexShrink: 0 }}
+      >
+        <defs>
+          <linearGradient
+            id="navGrad"
+            x1="0"
+            y1="0"
+            x2="52"
+            y2="52"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%" stopColor="var(--gold,  #C9982A)" />
+            <stop offset="100%" stopColor="var(--gold2, #E8C060)" />
+          </linearGradient>
+        </defs>
+        <rect width="52" height="52" rx="14" fill="url(#navGrad)" />
+        {/* S top */}
+        <path
+          d="M10 15 C10 13 12 12 15 12 L26 12 C29 12 30.5 13 30.5 15 C30.5 17 29 18.5 26 19 L15 21.5 C12 22 10 24 10 26.5 C10 29 12 30.5 15 30.5 L30.5 30.5"
+          stroke="white"
+          strokeWidth="2.6"
+          strokeLinecap="round"
+        />
+        {/* S bottom */}
+        <path
+          d="M30.5 30.5 C33 30.5 34.5 32 34.5 34 C34.5 36 33 37.5 30.5 37.5 L15 37.5 C12 37.5 10 36 10 34"
+          stroke="white"
+          strokeWidth="2.6"
+          strokeLinecap="round"
+        />
+        {/* K spine */}
+        <line
+          x1="39"
+          y1="12"
+          x2="39"
+          y2="37.5"
+          stroke="white"
+          strokeWidth="2.6"
+          strokeLinecap="round"
+        />
+        {/* K upper arm */}
+        <path
+          d="M39 25 L49 12"
+          stroke="white"
+          strokeWidth="2.6"
+          strokeLinecap="round"
+        />
+        {/* K lower arm */}
+        <path
+          d="M39 25 L49 37.5"
+          stroke="white"
+          strokeWidth="2.6"
+          strokeLinecap="round"
+        />
+        {/* dot */}
+        <circle cx="46" cy="45" r="1.8" fill="white" opacity="0.55" />
+      </svg>
+
+      {/* Text block */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
+        {/* Cloud — uses --t1 so it flips dark/light automatically */}
+        <div
+          style={{
+            fontFamily: "'Cinzel', 'Palatino Linotype', Georgia, serif",
+            fontSize: "17px",
+            fontWeight: 700,
+            letterSpacing: "0.5px",
+            lineHeight: 1,
+            color: "var(--t1)",
+          }}
         >
-          <stop offset="0%" stopColor="var(--gold,  #C9982A)" />
-          <stop offset="100%" stopColor="var(--gold2, #E8C060)" />
-        </linearGradient>
-      </defs>
-
-      {/* ── Icon mark 52×52 ── */}
-      <rect width="52" height="52" rx="14" fill="url(#navGrad)" />
-
-      {/* S top curve */}
-      <path
-        d="M10 15 C10 13 12 12 15 12 L26 12 C29 12 30.5 13 30.5 15 C30.5 17 29 18.5 26 19 L15 21.5 C12 22 10 24 10 26.5 C10 29 12 30.5 15 30.5 L30.5 30.5"
-        stroke="white"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-      />
-      {/* S bottom curve */}
-      <path
-        d="M30.5 30.5 C33 30.5 34.5 32 34.5 34 C34.5 36 33 37.5 30.5 37.5 L15 37.5 C12 37.5 10 36 10 34"
-        stroke="white"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-      />
-
-      {/* K spine */}
-      <line
-        x1="39"
-        y1="12"
-        x2="39"
-        y2="37.5"
-        stroke="white"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-      />
-      {/* K upper arm */}
-      <path
-        d="M39 25 L49 12"
-        stroke="white"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-      />
-      {/* K lower arm */}
-      <path
-        d="M39 25 L49 37.5"
-        stroke="white"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-      />
-
-      {/* dot accent */}
-      <circle cx="46" cy="45" r="1.8" fill="white" opacity="0.55" />
-
-      {/* ── Wordmark ── */}
-      {/* "Cloud" — dark */}
-      <text
-        x="62"
-        y="19"
-        fontFamily="'Cinzel', 'Palatino Linotype', Georgia, serif"
-        fontSize="17"
-        fontWeight="700"
-        letterSpacing="0.5"
-        fill="var(--t1, #0F1C3F)"
-      >
-        Cloud
-      </text>
-      {/* "Force" — gold */}
-      <text
-        x="62"
-        y="37"
-        fontFamily="'Cinzel', 'Palatino Linotype', Georgia, serif"
-        fontSize="17"
-        fontWeight="700"
-        letterSpacing="0.5"
-        fill="var(--gold, #B8841E)"
-      >
-        Force
-      </text>
-      {/* Tagline */}
-      <text
-        x="62"
-        y="49"
-        fontFamily="'DM Sans', Arial, sans-serif"
-        fontSize="6.5"
-        fontWeight="400"
-        letterSpacing="1.8"
-        fill="var(--t3, #7A84A3)"
-      >
-        PREMIUM SALESFORCE SOLUTIONS
-      </text>
-    </svg>
+          Cloud
+        </div>
+        {/* Force — always gold */}
+        <div
+          style={{
+            fontFamily: "'Cinzel', 'Palatino Linotype', Georgia, serif",
+            fontSize: "17px",
+            fontWeight: 700,
+            letterSpacing: "0.5px",
+            lineHeight: 1,
+            color: "var(--gold)",
+          }}
+        >
+          Force
+        </div>
+        {/* Tagline — full text, small, muted */}
+        <div
+          style={{
+            fontFamily: "'DM Sans', Arial, sans-serif",
+            fontSize: "7px",
+            fontWeight: 400,
+            letterSpacing: "1.6px",
+            lineHeight: 1,
+            color: "var(--t3)",
+            whiteSpace: "nowrap",
+            marginTop: "3px",
+          }}
+        >
+          PREMIUM SALESFORCE SOLUTIONS
+        </div>
+      </div>
+    </div>
   );
 }
 

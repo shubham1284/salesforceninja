@@ -1,17 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "SalesforceNinja | Salesforce Solutions & Consulting",
@@ -20,6 +9,11 @@ export const metadata: Metadata = {
   keywords:
     "Salesforce, Salesforce consulting, Salesforce implementation, Salesforce developer, CRM solutions, Salesforce integration",
   authors: [{ name: "SalesforceNinja" }],
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   openGraph: {
     title: "SalesforceNinja | Salesforce Solutions & Consulting",
     description:
@@ -42,10 +36,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" data-theme="dark">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+          rel="stylesheet"
+        />
+        {/* Prevent flash of wrong theme on load */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var t = localStorage.getItem('cf-theme') || 'dark';
+                  document.documentElement.setAttribute('data-theme', t);
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="antialiased">
         {children}
         <Analytics />
       </body>
