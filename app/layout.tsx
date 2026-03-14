@@ -9,11 +9,6 @@ export const metadata: Metadata = {
   keywords:
     "Salesforce, Salesforce consulting, Salesforce implementation, Salesforce developer, CRM solutions, Salesforce integration",
   authors: [{ name: "SalesforceNinja" }],
-  icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
-  },
   openGraph: {
     title: "SalesforceNinja | Salesforce Solutions & Consulting",
     description:
