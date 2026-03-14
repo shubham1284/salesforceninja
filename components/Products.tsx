@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { PRICES, DEFAULT_PRICE } from "@/lib/prices";
 
 // Razorpay global type
 declare global {
@@ -436,11 +437,11 @@ export default function Products() {
     try {
       setLoadingItem(productTitle);
 
-      // Step 1 — create order on server
+      // Step 1 — create order on server (amount is set server-side)
       const res = await fetch("/api/razorpay", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: 149, productTitle }),
+        body: JSON.stringify({ productTitle }),
       });
 
       if (!res.ok) throw new Error("Failed to create order");
@@ -628,7 +629,9 @@ export default function Products() {
                 <div className="prod-divider" />
                 <div className="prod-footer">
                   <div>
-                    <div className="prod-price">$149</div>
+                    <div className="prod-price">
+                      ${(PRICES[title] ?? DEFAULT_PRICE).usd}
+                    </div>
                     <div className="prod-price-lbl">One-time license</div>
                   </div>
                   <div className="prod-btns">
