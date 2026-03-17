@@ -413,6 +413,41 @@ const products = [
       </svg>
     ),
   },
+  {
+    num: "13",
+    iconColor: "#22D3EE",
+    iconBg: "rgba(34,211,238,0.15)",
+    badge: "Account Management",
+    badgeColor: "bdg-cyan",
+    tags: [
+      { label: "Custom List View", cls: "tag-green" },
+      { label: "Record Detail", cls: "tag-orange" },
+    ],
+    title: "Custom Account Dashboard & Detail Page",
+    desc: "A fully custom replacement for the standard Salesforce Account list view and record detail page. Features a KPI stats ribbon, live search, multi-filter toolbar, sortable columns, table/card toggle, skeleton loading, and pagination. The detail page includes six tabs, inline editing, and paginated related lists.",
+    bizValue:
+      "Replaces two standard Salesforce pages with a single SaaS-style interface — full 360° account view with pipeline value, contacts, activity timeline, and inline editing.",
+    meta: "LWC · Apex · LWR Site",
+    demoUrl: `${BASE_URL}/crm-dashboard`,
+    bar: "bar-cyan",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        width="22"
+        height="22"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="3" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="3" y="14" width="7" height="7" rx="1" />
+        <path d="M14 14h7v3h-7zM14 19h4" />
+      </svg>
+    ),
+  },
 ];
 
 export default function Products() {
