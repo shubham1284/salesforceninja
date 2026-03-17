@@ -630,7 +630,10 @@ export default function Products() {
                 <div className="prod-footer">
                   <div>
                     <div className="prod-price">
-                      ${(PRICES[title] ?? DEFAULT_PRICE).usd}
+                      ₹
+                      {(PRICES[title] ?? DEFAULT_PRICE).inr.toLocaleString(
+                        "en-IN",
+                      )}
                     </div>
                     <div className="prod-price-lbl">One-time license</div>
                   </div>
