@@ -16,7 +16,7 @@ export const PRICES: Record<string, { inr: number; usd: number }> = {
   "Case 360° View — SupportHub": { inr: 500, usd: 239 },
   "Partner Self-Registration Portal": { inr: 300, usd: 239 },
   "DataBridge Import & Mapping Engine": { inr: 500, usd: 199 },
-  "Custom Account Dashboard & Detail Page": { inr: 900, usd: 199 },
+  "Salesforce CRM Dashboard": { inr: 900, usd: 199 },
 };
 
 // Fallback price if product not found
