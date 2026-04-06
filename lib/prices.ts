@@ -17,6 +17,9 @@ export const PRICES: Record<string, { inr: number; usd: number }> = {
   "Partner Self-Registration Portal": { inr: 300, usd: 239 },
   "DataBridge Import & Mapping Engine": { inr: 500, usd: 199 },
   "Salesforce CRM Dashboard": { inr: 900, usd: 199 },
+  "CRM Dashboard": { inr: 300, usd: 49 },
+  "Account Summary Dashboard": { inr: 300, usd: 49 },
+  "Opportunity Management Hub": { inr: 300, usd: 49 },
 };
 
 // Fallback price if product not found

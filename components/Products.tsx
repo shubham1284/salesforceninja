@@ -18,6 +18,110 @@ const BASE_URL = "https://cube8441-dev-ed.develop.my.site.com/CodeWithShubham";
 const products = [
   {
     num: "01",
+    ourPick: true,
+    iconColor: "#A78BFA",
+    iconBg: "rgba(167,139,250,0.15)",
+    badge: "CRM Suite",
+    badgeColor: "bdg-purple",
+    tags: [
+      { label: "Pipeline Board", cls: "tag-green" },
+      { label: "Revenue Charts", cls: "tag-orange" },
+    ],
+    title: "CRM Dashboard",
+    desc: "A full-featured CRM built natively on Salesforce — manage deals, contacts, accounts, and activities from a single premium interface. Features a live pipeline board, revenue charts, KPI metrics, and an activity feed.",
+    bizValue:
+      "Built with LWC for real-time responsiveness without any third-party dependencies — a complete sales command center.",
+    meta: "LWC · LWR Site",
+    demoUrl: `${BASE_URL}/crmdashboardcontainer`,
+    bar: "bar-purple",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        width="22"
+        height="22"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="2" y="3" width="20" height="14" rx="2" />
+        <path d="M8 21h8M12 17v4" />
+        <path d="M7 8l3 3 2-2 3 3" />
+      </svg>
+    ),
+  },
+  {
+    num: "02",
+    ourPick: true,
+    iconColor: "#818CF8",
+    iconBg: "rgba(129,140,248,0.15)",
+    badge: "Account Analytics",
+    badgeColor: "bdg-indigo",
+    tags: [
+      { label: "360° View", cls: "tag-green" },
+      { label: "Glassmorphic UI", cls: "" },
+    ],
+    title: "Account Summary Dashboard",
+    desc: "Deep-dive into any Salesforce Account with a glassmorphic analytics dashboard showing open opportunities, revenue trends, stage-wise deal breakdowns, and contact timelines.",
+    bizValue:
+      "Designed for AEs and CSMs who need instant 360° account visibility without navigating multiple standard pages.",
+    meta: "LWC · LWR Site",
+    demoUrl: `${BASE_URL}/accountsummarydashboard-`,
+    bar: "bar-indigo",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        width="22"
+        height="22"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="M8 12h8M12 8v8" />
+      </svg>
+    ),
+  },
+  {
+    num: "03",
+    ourPick: true,
+    iconColor: "#3ECFB2",
+    iconBg: "rgba(62,207,178,0.15)",
+    badge: "Opportunity Mgmt",
+    badgeColor: "bdg-emerald",
+    tags: [
+      { label: "Kanban Pipeline", cls: "tag-green" },
+      { label: "Team Analytics", cls: "tag-orange" },
+    ],
+    title: "Opportunity Management Hub",
+    desc: "An enterprise-grade opportunity workspace with a Kanban pipeline, tabbed detail views for products, contracts, and tasks, and team performance analytics — all wired to live Salesforce data.",
+    bizValue:
+      "Replaces 5 standard Salesforce pages with one unified experience, cutting context-switching for the entire sales team.",
+    meta: "LWC · LWR Site",
+    demoUrl: `${BASE_URL}/opportunitymanagementhub`,
+    bar: "bar-emerald",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        width="22"
+        height="22"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="2" y="3" width="5" height="18" rx="1" />
+        <rect x="9.5" y="3" width="5" height="12" rx="1" />
+        <rect x="17" y="3" width="5" height="8" rx="1" />
+      </svg>
+    ),
+  },
+  {
+    num: "04",
     iconColor: "#D4AF6A",
     iconBg: "rgba(212,175,106,0.15)",
     badge: "Account Management",
@@ -452,6 +556,10 @@ const products = [
 
 export default function Products() {
   const [loadingItem, setLoadingItem] = useState<string | null>(null);
+  const [filter, setFilter] = useState<"all" | "picks">("all");
+
+  const visibleProducts =
+    filter === "picks" ? products.filter((p) => p.ourPick) : products;
 
   // ── Mouse glow ───────────────────────────────────────────
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -582,13 +690,49 @@ export default function Products() {
         .prod-biz  { font-size:12px; color:var(--t3); line-height:1.6; font-style:italic; margin-bottom:22px; padding-left:10px; border-left:2px solid var(--gold-border); }
         .prod-meta { font-size:11px; color:var(--t4); letter-spacing:0.06em; }
 
-        .product-card { --mx:50%; --my:50%; }
+        .product-card { --mx:50%; --my:50%; position:relative; }
         .product-card::before {
           content:''; position:absolute; inset:0; border-radius:24px;
           background:radial-gradient(circle at var(--mx) var(--my), rgba(212,175,106,0.08) 0%, transparent 65%);
           pointer-events:none; opacity:0; transition:opacity 0.3s;
         }
         .product-card:hover::before { opacity:1; }
+
+        .our-pick-ribbon {
+          position:absolute; top:16px; right:16px;
+          display:flex; align-items:center; gap:5px;
+          font-size:10px; font-weight:700; letter-spacing:0.1em;
+          padding:4px 10px; border-radius:100px;
+          background:linear-gradient(135deg,rgba(212,175,106,0.22),rgba(212,175,106,0.08));
+          border:1px solid rgba(212,175,106,0.35); color:#D4AF6A;
+          text-transform:uppercase;
+        }
+
+        .prod-filter-row {
+          display:flex; align-items:center; justify-content:space-between;
+          flex-wrap:wrap; gap:12px; margin-bottom:32px;
+        }
+        .prod-cat-label {
+          display:flex; align-items:center; gap:10px;
+          font-size:11px; font-weight:600; letter-spacing:0.12em;
+          text-transform:uppercase; color:var(--t3);
+        }
+        .prod-cat-pill {
+          padding:3px 12px; border-radius:100px;
+          background:rgba(62,207,178,0.12); border:1px solid rgba(62,207,178,0.25);
+          color:var(--emerald); font-size:10px; font-weight:700; letter-spacing:0.1em;
+        }
+        .prod-filter-tabs { display:flex; gap:8px; }
+        .prod-filter-tab {
+          padding:6px 18px; border-radius:100px; font-size:12px; font-weight:600;
+          cursor:pointer; border:1px solid var(--border2); background:var(--bg-lift);
+          color:var(--t3); transition:all 0.2s; letter-spacing:0.04em;
+        }
+        .prod-filter-tab:hover { border-color:var(--gold-border); color:var(--t1); }
+        .prod-filter-tab.active {
+          background:linear-gradient(135deg,rgba(212,175,106,0.2),rgba(212,175,106,0.08));
+          border-color:var(--gold-border); color:var(--gold);
+        }
 
         #products .products-grid { grid-template-columns:repeat(3,1fr); }
         @media(max-width:1100px){ #products .products-grid { grid-template-columns:repeat(2,1fr); } }
@@ -605,15 +749,37 @@ export default function Products() {
             Solutions &amp; <span className="lit">Products</span>
           </h2>
           <p className="sec-sub fade-up d1">
-            12 battle-tested Lightning Web Components — ready to deploy in any
+            15 battle-tested Lightning Web Components — ready to deploy in any
             Salesforce org with documentation and integration support.
           </p>
         </div>
 
+        <div className="prod-filter-row">
+          <div className="prod-cat-label">
+            <span className="prod-cat-pill">LWC</span>
+            Lightning Web Components
+          </div>
+          <div className="prod-filter-tabs">
+            <button
+              className={`prod-filter-tab ${filter === "all" ? "active" : ""}`}
+              onClick={() => setFilter("all")}
+            >
+              All ({products.length})
+            </button>
+            <button
+              className={`prod-filter-tab ${filter === "picks" ? "active" : ""}`}
+              onClick={() => setFilter("picks")}
+            >
+              ★ Our Picks ({products.filter((p) => p.ourPick).length})
+            </button>
+          </div>
+        </div>
+
         <div className="products-grid">
-          {products.map(
+          {visibleProducts.map(
             ({
               num,
+              ourPick,
               iconColor,
               iconBg,
               badge,
@@ -633,6 +799,9 @@ export default function Products() {
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
               >
+                {ourPick && (
+                  <div className="our-pick-ribbon">★ Our Pick</div>
+                )}
                 <div className={`prod-bar ${bar}`} />
                 <span className="prod-num">{num}</span>
                 <div
